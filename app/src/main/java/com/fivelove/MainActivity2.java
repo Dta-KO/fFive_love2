@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fivelove.databinding.ActivityMain2Binding;
 
 public class MainActivity2 extends AppCompatActivity {
-    ActivityMain2Binding binding;
+    public ActivityMain2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.setOnClickButton(new OnClickButton(binding));
     }
 
 

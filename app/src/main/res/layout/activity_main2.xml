@@ -1,99 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.fivelove.MainActivity2">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Button
-        android:id="@+id/btn_red"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="95dp"
-        android:background="@color/color_red"
-        android:text="@string/btn_red"
-        app:layout_constraintBottom_toTopOf="@+id/btn_yellow"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <Button
-        android:id="@+id/btn_yellow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="95dp"
-        android:layout_marginEnd="234dp"
-        android:layout_marginBottom="152dp"
-        android:background="@color/color_yellow"
-        android:text="@string/btn_yellow"
-        app:layout_constraintBottom_toTopOf="@+id/btn_orange"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_red" />
+        <variable
+            name="onClickButton"
+            type="com.fivelove.OnClickButton" />
+        <variable
+            name="binding"
+            type="com.fivelove.MainActivity2" />
+    </data>
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="241dp"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="82dp"
-        android:layout_marginBottom="76dp"
-        android:background="@color/color_green"
-        android:text="@string/btn_green"
-        app:layout_constraintBottom_toTopOf="@+id/btn_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.fivelove.MainActivity2">
 
-    <Button
-        android:id="@+id/btn_blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="229dp"
-        android:background="@color/color_blue"
-        android:text="@string/btn_blue"
-        app:layout_constraintBottom_toTopOf="@+id/btn_violet"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_yellow"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        <Button
+            android:id="@+id/btn_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="79dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginBottom="95dp"
+            android:background="@color/color_red"
+            android:onClick="@{onClickButton::onClickBtnRed}"
+            android:text="@string/btn_red"
+            app:layout_constraintBottom_toTopOf="@+id/btn_yellow"
+            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_violet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="213dp"
-        android:layout_marginTop="203dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="205dp"
-        android:background="@color/color_violet"
-        android:text="@string/btn_violet"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_blue" />
+        <Button
+            android:id="@+id/btn_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="89dp"
+            android:layout_marginTop="95dp"
+            android:layout_marginEnd="234dp"
+            android:layout_marginBottom="152dp"
+            android:background="@color/color_yellow"
+            android:text="@string/btn_yellow"
+            android:onClick="@{onClickButton::onClickBtnYellow}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_red" />
 
-    <Button
-        android:id="@+id/btn_orange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="258dp"
-        android:layout_marginBottom="275dp"
-        android:background="@color/color_orange"
-        android:text="@string/btn_orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_yellow" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="241dp"
+            android:layout_marginTop="77dp"
+            android:layout_marginEnd="82dp"
+            android:layout_marginBottom="76dp"
+            android:background="@color/color_green"
+            android:text="@string/btn_green"
+            android:onClick="@{onClickButton::onClickBtnGreen}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="53dp"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="229dp"
+            android:background="@color/color_blue"
+            android:text="@string/btn_blue"
+            android:onClick="@{onClickButton::onClickBtnBlue}"
+            app:layout_constraintBottom_toTopOf="@+id/btn_violet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_yellow"
+            app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+        <Button
+            android:id="@+id/btn_violet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="213dp"
+            android:layout_marginTop="203dp"
+            android:layout_marginEnd="110dp"
+            android:layout_marginBottom="205dp"
+            android:background="@color/color_violet"
+            android:text="@string/btn_violet"
+            android:onClick="@{onClickButton::onClickBtnViolet}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_blue" />
+
+        <Button
+            android:id="@+id/btn_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="258dp"
+            android:layout_marginBottom="275dp"
+            android:background="@color/color_orange"
+            android:text="@string/btn_orange"
+            android:onClick="@{onClickButton::onClickBtnOrange}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_yellow" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
