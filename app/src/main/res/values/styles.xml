@@ -1,17 +1,28 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/color_red</item>
+        <item name="colorPrimaryDark">@color/color_red</item>
+        <item name="colorAccent">@color/color_orange</item>
+        <item name="colorSecondary">@color/color_red</item>
+        <item name="android:colorBackground">@color/color_white</item>
+        <item name="colorError">@color/color_red</item>
     </style>
 
-    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="App.EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/color_state_list</item>
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
     </style>
 
+    <style name="App.ImageButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+
+    </style>
+    <style name="App.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+
+    </style>
 </resources>

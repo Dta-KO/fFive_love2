@@ -9,4 +9,14 @@
     <string name="btn_blue">Blue</string>
     <string name="btn_orange">Orange</string>
     <string name="btn_violet">violet</string>
+    <string name="login_facebook">Đăng nhập facebook</string>
+    <string name="u_avt">user avt</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message">Chat</string>
+    <string name="contacts">Danh bạ</string>
+    <string name="error">Một sự cố đáng tiếc đã xảy ra! Mời bạn quay lại sau ít phút nhé.</string>
+    <string name="send_message">Type a message...</string>
+    <string name="user_anonymous">Anonymous</string>
+    <string name="default_message">No message</string>
 </resources>

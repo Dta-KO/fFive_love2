@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size_big">36sp</dimen>
+    <dimen name="margin_item">5dp</dimen>
+    <dimen name="circle_image">50dp</dimen>
+    <dimen name="small_item_padding">2dp</dimen>
+    <dimen name="circle_image_header">40dp</dimen>
 </resources>
