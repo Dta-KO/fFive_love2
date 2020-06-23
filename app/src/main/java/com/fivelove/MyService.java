@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.fivelove.utils.BitmapUtil;
+
 public class MyService extends Service {
 
     @Override
@@ -44,8 +46,8 @@ public class MyService extends Service {
 
         @Override
         protected Bitmap doInBackground(String... strings) {
-            Bitmap bitmap = Utils.downloadImage(strings[0]);
-            Utils.saveBitmapToFile(getBaseContext(), bitmap);
+            Bitmap bitmap = BitmapUtil.downloadImage(strings[0]);
+            BitmapUtil.saveBitmapToFile(getBaseContext(), bitmap);
             return bitmap;
         }
 

@@ -3,9 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="screenUtil"
+            type="com.fivelove.utils.ScreenHelperUtil" />
+
+        <variable
+            name="title"
+            type="com.fivelove.adapter.MPagerAdapter" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:fadeScrollbars="true"
         android:isScrollContainer="true"
         android:nestedScrollingEnabled="true"
@@ -13,53 +25,53 @@
         android:scrollbarStyle="outsideInset"
         tools:context="com.fivelove.ui.MainActivity">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <Toolbar
             android:id="@+id/materialToolbar"
-            android:background="?attr/colorPrimary"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/pager"
+            app:layout_constraintEnd_toStartOf="@+id/searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            app:closeIcon="@drawable/ic_baseline_close_24"
             app:layout_constraintBottom_toTopOf="@+id/pager"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toEndOf="@+id/materialToolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:searchHintIcon="@drawable/ic_baseline_search_24"
+            app:searchIcon="@drawable/ic_baseline_search_24" />
 
-           <include layout="@layout/header"
-               />
-        </com.google.android.material.appbar.MaterialToolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/background"
+            android:background="@android:drawable/screen_background_light_transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@android:drawable/screen_background_light_transparent"
             android:layoutDirection="ltr"
             app:layout_constraintBottom_toTopOf="@+id/tab"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
 
-        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/btn_add"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="@dimen/margin_item"-->
-<!--            android:layout_marginBottom="@dimen/margin_item"-->
-<!--            android:clickable="true"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/pager"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:srcCompat="@android:drawable/ic_input_add"-->
-<!--            android:focusable="true" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

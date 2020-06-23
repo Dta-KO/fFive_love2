@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 /**
  * Created by Nguyen Kim Khanh on 6/8/2020.
  */
-@Entity
+@Entity(tableName = "friends")
 public class User {
     @PrimaryKey(autoGenerate = true)
     private long id;

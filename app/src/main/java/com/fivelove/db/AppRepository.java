@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.fivelove.App;
+import com.fivelove.db.dao.FriendDao;
+import com.fivelove.db.dao.ImageDao;
 import com.fivelove.db.dao.MessageDao;
-import com.fivelove.db.dao.UserDao;
+import com.fivelove.db.model.Image;
 import com.fivelove.db.model.Message;
 import com.fivelove.db.model.User;
 
@@ -16,43 +18,64 @@ import java.util.List;
  * Created by Nguyen Kim Khanh on 6/16/2020.
  */
 public class AppRepository {
-    private UserDao userDao;
+    private FriendDao friendDao;
     private MessageDao messageDao;
+    private ImageDao imageDao;
     private LiveData<List<Message>> allMessages;
-    private LiveData<List<User>> allUsers;
-    private long idUser;
+    private LiveData<List<Image>> allImages;
+    private LiveData<List<User>> allFriends;
+    private long idFriend;
 
     public AppRepository(App application) {
         AppDatabase db = AppDatabase.getInstance(application);
-        userDao = db.userDao();
-        allUsers = userDao.getAllUser();
+        friendDao = db.userDao();
+        allFriends = friendDao.getAllFriends();
 
         messageDao = db.messageDao();
-        allMessages = messageDao.getAllMessage(idUser);
+        allMessages = messageDao.getAllMessage(idFriend);
+
+        imageDao = db.imageDao();
+        allImages = imageDao.getAllImage(idFriend);
     }
 
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
+    public void setIdFriend(long idFriend) {
+        this.idFriend = idFriend;
     }
 
-    public long getIdUser() {
-        return idUser;
+    public long getIdFriend() {
+        return idFriend;
     }
 
-    public void insertUser(User user) {
-        new InsertUserAsyncTask(userDao).execute(user);
+    public void insertUser(User friend) {
+        new InsertUserAsyncTask(friendDao).execute(friend);
     }
 
-    public void deleteUser(User user) {
-        new DeleteUserAsyncTask(userDao).execute(user);
+    public void deleteUser(User friend) {
+        new DeleteUserAsyncTask(friendDao).execute(friend);
     }
 
-    public void updateUser(User user) {
-        new UpdateUserAsyncTask(userDao).execute(user);
+    public void updateUser(User friend) {
+        new UpdateUserAsyncTask(friendDao).execute(friend);
     }
 
-    public LiveData<List<User>> getAllUsers() {
-        return allUsers;
+    public LiveData<List<User>> getAllFriends() {
+        return allFriends;
+    }
+
+    public void insertImage(Image image) {
+        new InsertImageAsyncTask(imageDao).execute(image);
+    }
+
+    public void deleteImage(Image image) {
+        new DeleteImageAsyncTask(imageDao).execute(image);
+    }
+
+    public void updateImage(Image image) {
+        new UpdateImageAsyncTask(imageDao).execute(image);
+    }
+
+    public LiveData<List<Image>> getAllImages() {
+        return allImages;
     }
 
     public void insertMessage(Message message) {
@@ -72,43 +95,43 @@ public class AppRepository {
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
+        private FriendDao friendDao;
 
-        private InsertUserAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
+        private InsertUserAsyncTask(FriendDao friendDao) {
+            this.friendDao = friendDao;
         }
 
         @Override
         protected Void doInBackground(User... users) {
-            userDao.insert(users[0]);
+            friendDao.insert(users[0]);
             return null;
         }
     }
 
     private static class DeleteUserAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
+        private FriendDao friendDao;
 
-        private DeleteUserAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
+        private DeleteUserAsyncTask(FriendDao friendDao) {
+            this.friendDao = friendDao;
         }
 
         @Override
         protected Void doInBackground(User... users) {
-            userDao.delete(users[0]);
+            friendDao.delete(users[0]);
             return null;
         }
     }
 
     private static class UpdateUserAsyncTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
+        private FriendDao friendDao;
 
-        private UpdateUserAsyncTask(UserDao userDao) {
-            this.userDao = userDao;
+        private UpdateUserAsyncTask(FriendDao friendDao) {
+            this.friendDao = friendDao;
         }
 
         @Override
         protected Void doInBackground(User... users) {
-            userDao.update(users[0]);
+            friendDao.update(users[0]);
             return null;
         }
     }
@@ -154,6 +177,58 @@ public class AppRepository {
         @Override
         protected Void doInBackground(Message... messages) {
             messageDao.insert(messages[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateImageAsyncTask extends AsyncTask<Image, Void, Void> {
+        private ImageDao imageDao;
+
+        private UpdateImageAsyncTask(ImageDao imageDao) {
+            this.imageDao = imageDao;
+        }
+
+
+        @Override
+        protected Void doInBackground(Image... images) {
+            imageDao.update(images[0]);
+            return null;
+        }
+    }
+
+    private static class InsertImageAsyncTask extends AsyncTask<Image, Void, Void> {
+        private ImageDao imageDao;
+
+        private InsertImageAsyncTask(ImageDao imageDao) {
+            this.imageDao = imageDao;
+        }
+
+
+        @Override
+        protected Void doInBackground(Image... images) {
+            imageDao.insert(images[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteImageAsyncTask extends AsyncTask<Image, Void, Void> {
+        private ImageDao imageDao;
+
+        private DeleteImageAsyncTask(ImageDao imageDao) {
+            this.imageDao = imageDao;
+        }
+
+        public ImageDao getImageDao() {
+            return imageDao;
+        }
+
+        public void setImageDao(ImageDao imageDao) {
+            this.imageDao = imageDao;
+        }
+
+        @Override
+        protected Void doInBackground(Image... images) {
+            imageDao.delete(images[0]);
             return null;
         }
     }

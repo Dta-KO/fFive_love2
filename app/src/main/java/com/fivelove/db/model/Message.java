@@ -1,7 +1,9 @@
 package com.fivelove.db.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -9,18 +11,17 @@ import java.util.Date;
 /**
  * Created by Nguyen Kim Khanh on 6/9/2020.
  */
-@Entity(foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "idUser", onDelete = ForeignKey.CASCADE))
+@Entity(indices = {@Index("idUser")},foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "idUser", onDelete = ForeignKey.CASCADE))
 public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private long idUser;
     private String text;
-    private long timeSent;
+    private Date timePost;
 
-    public Message(long idUser,String text, long timeSent) {
-        this.idUser = idUser;
+    public Message(String text, Date timePost) {
         this.text = text;
-        this.timeSent = timeSent;
+        this.timePost = timePost;
     }
 
     public int getId() {
@@ -35,11 +36,15 @@ public class Message {
         return idUser;
     }
 
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
+
     public String getText() {
         return text;
     }
 
-    public long getTimeSent() {
-        return timeSent;
+    public Date getTimePost() {
+        return timePost;
     }
 }

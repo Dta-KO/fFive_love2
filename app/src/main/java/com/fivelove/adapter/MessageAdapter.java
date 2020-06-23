@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fivelove.R;
-import com.fivelove.databinding.MessageItemBinding;
+import com.fivelove.databinding.UserItemBinding;
 import com.fivelove.db.model.User;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.UserView
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MessageItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.message_item,parent, false);
+        UserItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.user_item, parent, false);
         return new UserViewHolder(binding);
     }
 
@@ -48,9 +48,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.UserView
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
-        MessageItemBinding binding;
+        UserItemBinding binding;
 
-        public UserViewHolder(@NonNull MessageItemBinding binding) {
+        public UserViewHolder(@NonNull UserItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

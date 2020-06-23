@@ -1,6 +1,5 @@
 package com.fivelove.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.fivelove.R;
 import com.fivelove.adapter.MessageAdapter;
-import com.fivelove.databinding.FragmentMessageBinding;
-import com.fivelove.db.model.User;
+import com.fivelove.databinding.FragmentUsersBinding;
 import com.fivelove.viewmodel.AppViewModel;
+
+import java.util.Objects;
 
 
 public class MessageFragment extends Fragment {
 
-    FragmentMessageBinding messageBinding;
+    FragmentUsersBinding userBinding;
     MessageAdapter messageAdapter;
 
 
@@ -45,10 +44,17 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        messageBinding = FragmentMessageBinding.inflate(inflater);
+        userBinding = FragmentUsersBinding.inflate(inflater);
         setViewModel();
-        return messageBinding.getRoot();
+        Objects.requireNonNull(Objects.requireNonNull(getActivity()).getActionBar()).setTitle("Chat");
+        return userBinding.getRoot();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Objects.requireNonNull(Objects.requireNonNull(getActivity()).getActionBar()).setTitle("Chat");
     }
 
     @Override
@@ -59,10 +65,10 @@ public class MessageFragment extends Fragment {
 
     public void setRecyclerView() {
         messageAdapter = new MessageAdapter();
-        messageBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        messageBinding.recyclerView.setHasFixedSize(true);
-        messageBinding.recyclerView.setFitsSystemWindows(true);
-        messageBinding.recyclerView.setAdapter(messageAdapter);
+        userBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        userBinding.recyclerView.setHasFixedSize(true);
+        userBinding.recyclerView.setFitsSystemWindows(true);
+        userBinding.recyclerView.setAdapter(messageAdapter);
     }
 
     public void setViewModel() {
@@ -72,8 +78,5 @@ public class MessageFragment extends Fragment {
                     Toast.makeText(getContext(), "onChanged!", Toast.LENGTH_SHORT).show();
                 }
         );
-//        Intent intent=getActivity().getIntent();
-//        if(intent.getStringExtra("name")!=null)
-//        myViewModel.insertUser(new User(intent.getStringExtra("name"), R.drawable.avatar));
     }
 }

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.fivelove.fragment.ContactFragment;
+import com.fivelove.fragment.StoryFragment;
 import com.fivelove.fragment.MessageFragment;
 
 /**
@@ -20,10 +20,10 @@ public class MPagerAdapter extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
         Fragment fragment;
-        if (position == 0) {
+        if (position == 1) {
             fragment = MessageFragment.newInstance();
         } else {
-            fragment = ContactFragment.newInstance();
+            fragment = StoryFragment.newInstance();
         }
         return fragment;
     }

@@ -1,6 +1,10 @@
 package com.fivelove.db.converter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import java.util.Date;
 
