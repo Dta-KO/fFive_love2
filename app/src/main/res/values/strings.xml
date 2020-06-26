@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">TestProject1</string>
-    <string name="string_hello">Helllo Codefresher</string>
+    <string name="app_name">Fivelove</string>
     <string name="btn_increase">Increase</string>
     <string name="btn_decrease">Decrease</string>
     <string name="btn_red">Red</string>
@@ -19,4 +18,11 @@
     <string name="send_message">Type a message...</string>
     <string name="user_anonymous">Anonymous</string>
     <string name="default_message">No message</string>
+    <string name="login_by_facebook">Đăng nhập qua facebook</string>
+    <string name="login_by_phone_number">Đăng nhập bằng số điện thoại</string>
+
+    //facebook
+    <string name="facebook_app_id">632412510961814</string>
+    <string name="fb_login_protocol_scheme">fb632412510961814</string>
+
 </resources>

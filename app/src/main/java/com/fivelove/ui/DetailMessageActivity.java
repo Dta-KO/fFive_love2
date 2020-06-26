@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.fivelove.databinding.DetailMessageActivityBinding;
 
-public class DetailMessageActivity extends AppCompatActivity implements View.OnClickListener {
+public class DetailMessageActivity extends BaseActivity implements View.OnClickListener {
     DetailMessageActivityBinding binding;
 
 

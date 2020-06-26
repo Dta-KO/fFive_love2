@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -80,6 +81,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     //card stack view
     implementation "com.yuyakaido.android:card-stack-view:2.3.4"
+    //firebase
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    //facebook
+    implementation 'com.facebook.android:facebook-login:5.15.3'
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
