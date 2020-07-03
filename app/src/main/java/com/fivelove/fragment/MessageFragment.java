@@ -73,7 +73,7 @@ public class MessageFragment extends Fragment {
 
     public void setViewModel() {
         final AppViewModel myViewModel = new ViewModelProvider(this).get(AppViewModel.class);
-        myViewModel.getAllUsers().observe(getViewLifecycleOwner(), users -> {
+        myViewModel.getAllFriends().observe(getViewLifecycleOwner(), users -> {
                     messageAdapter.setUsers(users);
                     Toast.makeText(getContext(), "onChanged!", Toast.LENGTH_SHORT).show();
                 }

@@ -32,7 +32,7 @@ public class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
         for (int i = 0; i < userList.size(); i++) {
-            friendDao.insert(userList.get(i));
+//            friendDao.insert(userList.get(i));
         }
 
         return null;
@@ -40,11 +40,6 @@ public class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
 
     public void setUserList() {
         userList = new ArrayList<>();
-        userList.add(new User("Khánh", R.drawable.avatar));
-        userList.add(new User("hưng", R.drawable.th));
-        userList.add(new User("hùng", R.drawable.avatar));
-        userList.add(new User("dũng", R.drawable.th));
-        userList.add(new User("toàn", R.drawable.avatar));
-        userList.add(new User("anh", R.drawable.avatar));
+
     }
 }

@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.fivelove.db.converter.BitmapConverter;
 import com.fivelove.db.converter.DateConverter;
+import com.fivelove.db.converter.UriConverter;
 import com.fivelove.db.dao.FriendDao;
 import com.fivelove.db.dao.ImageDao;
 import com.fivelove.db.dao.MessageDao;
@@ -22,7 +23,7 @@ import com.fivelove.db.model.User;
  * Created by Nguyen Kim Khanh on 6/16/2020.
  */
 @Database(entities = {User.class, Message.class, Image.class}, version = 1, exportSchema = false)
-@TypeConverters({DateConverter.class, BitmapConverter.class})
+@TypeConverters({DateConverter.class, BitmapConverter.class, UriConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 

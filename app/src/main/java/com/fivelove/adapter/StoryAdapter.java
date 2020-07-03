@@ -28,7 +28,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     }
 
     public void setImages(int position) {
-        long idUser = users.get(position).getId();
+        String idUser = users.get(position).getId();
     }
 
     @NonNull

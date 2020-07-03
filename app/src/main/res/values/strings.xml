@@ -24,5 +24,9 @@
     //facebook
     <string name="facebook_app_id">632412510961814</string>
     <string name="fb_login_protocol_scheme">fb632412510961814</string>
+    <string name="edt_user_name">Nick name của bạn.</string>
+    <string name="edt_phone">Số điện thoại của bạn.</string>
+    <string name="btn_save_profile">Lưu Profile</string>
+    <string name="btn_logout">Đăng xuất</string>
 
 </resources>

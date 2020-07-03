@@ -19,14 +19,15 @@ import java.util.List;
  */
 public class AppViewModel extends AndroidViewModel {
     private AppRepository repository;
-    private LiveData<List<User>> allUsers;
+    private LiveData<List<User>> allFriends;
+    private LiveData<User> currentUser;
     private LiveData<List<Message>> allMessages;
     private LiveData<List<Image>> allImages;
 
     public AppViewModel(@NonNull Application application) {
         super(application);
         repository = new AppRepository((App) application);
-        allUsers = repository.getAllFriends();
+        allFriends = repository.getAllFriends();
         allMessages = repository.getAllMessages();
         allImages = repository.getAllImages();
     }
@@ -43,8 +44,8 @@ public class AppViewModel extends AndroidViewModel {
         repository.updateUser(user);
     }
 
-    public LiveData<List<User>> getAllUsers() {
-        return allUsers;
+    public LiveData<List<User>> getAllFriends() {
+        return allFriends;
     }
 
     public void insertMessage(Message message) {

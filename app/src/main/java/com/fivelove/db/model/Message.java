@@ -1,27 +1,29 @@
 package com.fivelove.db.model;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
 /**
  * Created by Nguyen Kim Khanh on 6/9/2020.
  */
-@Entity(indices = {@Index("idUser")},foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "idUser", onDelete = ForeignKey.CASCADE))
+@Entity(indices = {@Index("idPartner")},foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "idPartner", onDelete = ForeignKey.CASCADE))
 public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private long idUser;
+    private long idPartner;
     private String text;
+    @ServerTimestamp
     private Date timePost;
 
-    public Message(String text, Date timePost) {
+    public Message(long idPartner,String text) {
+        this.idPartner = idPartner;
         this.text = text;
-        this.timePost = timePost;
     }
 
     public int getId() {
@@ -32,12 +34,12 @@ public class Message {
         this.id = id;
     }
 
-    public long getIdUser() {
-        return idUser;
+    public long getIdPartner() {
+        return idPartner;
     }
 
-    public void setIdUser(long idUser) {
-        this.idUser = idUser;
+    public void setIdPartner(long idPartner) {
+        this.idPartner = idPartner;
     }
 
     public String getText() {
@@ -46,5 +48,13 @@ public class Message {
 
     public Date getTimePost() {
         return timePost;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setTimePost(Date timePost) {
+        this.timePost = timePost;
     }
 }

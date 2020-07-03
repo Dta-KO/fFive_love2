@@ -2,10 +2,13 @@ package com.fivelove.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.fivelove.R;
+import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -18,13 +21,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class MyBindingAdapter {
     @BindingAdapter("android:src")
-    public static void setImage(CircleImageView view, int resource) {
-        view.setImageResource(resource);
+    public static void setImage(CircleImageView view, String resource) {
+        Picasso.get().load(Uri.parse(resource)).placeholder(R.drawable.avatar).error(R.drawable.th).into(view);
     }
-//    @BindingAdapter("app:imgBitmap")
-//    public static void setImageBitmap(ImageView view, Bitmap bitmap){
-//        view.setImageBitmap(bitmap);
-//    }
+
 //    @BindingAdapter("app:layoutManager")
 //    public static void setLayoutManager(CardStackView view, Context context){
 //        CardStackLayoutManager layoutManager = new CardStackLayoutManager(context);

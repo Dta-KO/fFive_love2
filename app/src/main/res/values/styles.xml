@@ -10,7 +10,7 @@
         <item name="colorError">@color/color_red</item>
     </style>
 
-    <style name="App.EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <style name="App.EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeColor">@color/color_state_list</item>
         <item name="boxCornerRadiusBottomEnd">10dp</item>

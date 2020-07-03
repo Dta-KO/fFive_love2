@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
 import java.util.Date;
 
 /**
@@ -17,14 +19,14 @@ public class Image {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private Bitmap bitmap;
+    @ServerTimestamp
     private Date timePost;
     private int likes;
     private String descriptions;
     private long idUser;
 
-    public Image(Bitmap bitmap, Date timePost, int likes, String descriptions) {
+    public Image(Bitmap bitmap, int likes, String descriptions) {
         this.bitmap = bitmap;
-        this.timePost = timePost;
         this.likes = likes;
         this.descriptions = descriptions;
     }
@@ -76,4 +78,5 @@ public class Image {
     public void setIdUser(long idUser) {
         this.idUser = idUser;
     }
+
 }

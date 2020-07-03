@@ -25,6 +25,7 @@ public class AppRepository {
     private LiveData<List<Image>> allImages;
     private LiveData<List<User>> allFriends;
     private long idFriend;
+    private LiveData<User> user;
 
     public AppRepository(App application) {
         AppDatabase db = AppDatabase.getInstance(application);
@@ -92,6 +93,10 @@ public class AppRepository {
 
     public LiveData<List<Message>> getAllMessages() {
         return allMessages;
+    }
+
+    public LiveData<User> getCurrentUser() {
+        return user;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {

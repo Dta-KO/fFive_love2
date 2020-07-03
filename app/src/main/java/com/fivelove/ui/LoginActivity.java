@@ -3,7 +3,6 @@ package com.fivelove.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -12,33 +11,32 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.BuildConfig;
 import com.firebase.ui.auth.IdpResponse;
 import com.fivelove.R;
 import com.fivelove.databinding.ActivityLoginBinding;
+import com.fivelove.utils.Constant;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.json.JSONException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Collections;
 
+import static com.firebase.ui.auth.BuildConfig.BUILD_TYPE;
 import static com.fivelove.utils.Constant.RC_SIGN_IN;
 
 public class LoginActivity extends BaseActivity {
-    private FirebaseAuth auth;
-    ActivityLoginBinding binding;
+
+    private ActivityLoginBinding binding;
     private CallbackManager manager;
     private LoginButton loginButton;
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +46,12 @@ public class LoginActivity extends BaseActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        auth = FirebaseAuth.getInstance();
+        //init login fb
         loginByFacebook();
         binding.btnLoginFb.setOnClickListener(view -> loginButton.performClick());
+
+        //init login number phone
+        binding.btnLoginByPhoneNumber.setOnClickListener(view -> loginByPhoneNumber());
 
     }
 
@@ -61,19 +62,7 @@ public class LoginActivity extends BaseActivity {
         loginButton.registerCallback(manager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
-                    try {
-                        URL profile_pic = new URL(
-                                "http://graph.facebook.com/" + object.getString("id") + "/picture?type=large");
-                        Log.i("profile_pic",
-                                profile_pic + "");
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-
-                    } catch (MalformedURLException | JSONException e) {
-                        e.printStackTrace();
-                    }
-                });
-                request.executeAsync();
+                handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
             @Override
@@ -91,25 +80,33 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) changeLoginActivityToMainActivity();
+        checkProfileUser();
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        auth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
-            FirebaseUser user = auth.getCurrentUser();
-            if (user != null) {
+        Constant.AUTH.signInWithCredential(credential).addOnCompleteListener(this, (Task<AuthResult> task) ->
+                checkProfileUser());
+    }
+
+    public void checkProfileUser() {
+        if (Constant.CURRENT_USER != null) {
+            if (!Constant.CURRENT_USER.getDisplayName().isEmpty() && !Constant.CURRENT_USER.getPhotoUrl().toString().isEmpty() && !Constant.CURRENT_USER.getPhoneNumber().isEmpty()) {
                 changeLoginActivityToMainActivity();
             } else {
-                Toast.makeText(this, R.string.error, Toast.LENGTH_LONG).show();
+                changeLoginActivityToProfileActivity();
             }
-
-        });
+        }
     }
 
     private void changeLoginActivityToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void changeLoginActivityToProfileActivity() {
+        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
 
@@ -137,7 +134,7 @@ public class LoginActivity extends BaseActivity {
 
     private void loginByPhoneNumber() {
         Intent intent = AuthUI.getInstance().createSignInIntentBuilder()
-                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                .setIsSmartLockEnabled(Boolean.parseBoolean(BUILD_TYPE))
                 .setAvailableProviders(Collections.singletonList(new AuthUI.IdpConfig.PhoneBuilder().build()))
                 .setLogo(R.mipmap.ic_launcher)
                 .build();
