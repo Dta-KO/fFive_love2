@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.fivelove.adapter.MessageAdapter;
 import com.fivelove.databinding.FragmentUsersBinding;
-import com.fivelove.viewmodel.AppViewModel;
+import com.fivelove.viewmodel.FriendsViewModel;
 
 import java.util.Objects;
 
@@ -45,7 +45,6 @@ public class MessageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         userBinding = FragmentUsersBinding.inflate(inflater);
-        setViewModel();
         Objects.requireNonNull(Objects.requireNonNull(getActivity()).getActionBar()).setTitle("Chat");
         return userBinding.getRoot();
 
@@ -61,6 +60,7 @@ public class MessageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setRecyclerView();
+        setViewModel();
     }
 
     public void setRecyclerView() {
@@ -72,7 +72,7 @@ public class MessageFragment extends Fragment {
     }
 
     public void setViewModel() {
-        final AppViewModel myViewModel = new ViewModelProvider(this).get(AppViewModel.class);
+        final FriendsViewModel myViewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
         myViewModel.getAllFriends().observe(getViewLifecycleOwner(), users -> {
                     messageAdapter.setUsers(users);
                     Toast.makeText(getContext(), "onChanged!", Toast.LENGTH_SHORT).show();

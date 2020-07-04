@@ -26,6 +26,6 @@ public interface MessageDao {
     void update(Message message);
 
     @Query("SELECT * FROM message WHERE idPartner = :idUser ORDER BY timePost DESC")
-    LiveData<List<Message>> getAllMessage(long idUser);
+    LiveData<List<Message>> getAllMessage(String idUser);
 
 }

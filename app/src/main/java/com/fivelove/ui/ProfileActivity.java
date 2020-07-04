@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -15,8 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.facebook.login.LoginManager;
 import com.fivelove.databinding.ActivityProfileBinding;
 import com.fivelove.utils.Constant;
-import com.fivelove.viewmodel.AppViewModel;
-import com.fivelove.viewmodel.UserModel;
+import com.fivelove.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,23 +42,29 @@ public class ProfileActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
-//        setViewModel();
+        setViewModel();
         binding.btnLogout.setOnClickListener(view -> signOut());
+
         binding.btnSave.setOnClickListener(view -> {
-            if(binding.edtName.getText().toString().isEmpty()||binding.edtPhone.getText().toString().isEmpty()){
+            if (binding.edtName.getText().toString().isEmpty() || binding.edtPhone.getText().toString().isEmpty()) {
                 return;
             }
-            updateDetails(binding.edtName.getText().toString().trim(),String.valueOf(imgUrl));
+            updateDetails(binding.edtName.getText().toString().trim(), String.valueOf(imgUrl));
         });
         binding.avtProfile.setOnClickListener(view -> chooseImage());
     }
+
     public void setViewModel() {
-        final UserModel userModel = new ViewModelProvider(this).get(UserModel.class);
-        userModel.getUser().observe(this, users -> {
+        final UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        if (userViewModel.getCurrentUser() == null) {
+            return;
+        }
+        userViewModel.getCurrentUser().observe(this, users -> {
                     binding.setUser(users);
                 }
         );
     }
+
     public void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -98,10 +103,12 @@ public class ProfileActivity extends BaseActivity {
                             //completed
                             Toast.makeText(ProfileActivity.this, "Changes saved.",
                                     Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, user.getDisplayName()+user.getPhotoUrl());
                             finish();
                         }
                     }
                 });
+
     }
 
     public void signOut() {
@@ -124,6 +131,7 @@ public class ProfileActivity extends BaseActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

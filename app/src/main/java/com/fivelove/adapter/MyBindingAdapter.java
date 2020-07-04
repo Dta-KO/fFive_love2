@@ -22,6 +22,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MyBindingAdapter {
     @BindingAdapter("android:src")
     public static void setImage(CircleImageView view, String resource) {
+        if (resource==null){
+            return;
+        }
         Picasso.get().load(Uri.parse(resource)).placeholder(R.drawable.avatar).error(R.drawable.th).into(view);
     }
 

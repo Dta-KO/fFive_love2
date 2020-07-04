@@ -42,4 +42,5 @@ public class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         userList = new ArrayList<>();
 
     }
+    
 }

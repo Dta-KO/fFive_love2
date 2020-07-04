@@ -28,4 +28,7 @@ public interface FriendDao {
     @Query("SELECT * FROM friends")
     LiveData<List<User>> getAllFriends();
 
+    @Query(("SELECT * FROM friends WHERE id = :id"))
+    LiveData<User> getCurrentUser(String id);
+
 }

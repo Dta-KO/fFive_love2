@@ -26,5 +26,5 @@ public interface ImageDao {
     void update(Image image);
 
     @Query("SELECT * FROM images WHERE idUser = :idUser ORDER BY timePost DESC")
-    LiveData<List<Image>> getAllImage(long idUser);
+    LiveData<List<Image>> getAllImage(String idUser);
 }

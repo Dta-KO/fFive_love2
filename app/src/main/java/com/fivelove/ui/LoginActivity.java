@@ -92,10 +92,11 @@ public class LoginActivity extends BaseActivity {
 
     public void checkProfileUser() {
         if (Constant.CURRENT_USER != null) {
-            if (!Constant.CURRENT_USER.getDisplayName().isEmpty() && !Constant.CURRENT_USER.getPhotoUrl().toString().isEmpty() && !Constant.CURRENT_USER.getPhoneNumber().isEmpty()) {
-                changeLoginActivityToMainActivity();
-            } else {
+            Log.d(TAG,Constant.CURRENT_USER.getDisplayName()+": "+Constant.CURRENT_USER.getPhotoUrl());
+            if (Constant.CURRENT_USER.getDisplayName()==null || Constant.CURRENT_USER.getPhotoUrl().toString().isEmpty()) {
                 changeLoginActivityToProfileActivity();
+            } else {
+                changeLoginActivityToMainActivity();
             }
         }
     }
