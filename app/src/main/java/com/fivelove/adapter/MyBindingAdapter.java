@@ -25,7 +25,7 @@ public class MyBindingAdapter {
         if (resource==null){
             return;
         }
-        Picasso.get().load(Uri.parse(resource)).placeholder(R.drawable.avatar).error(R.drawable.th).into(view);
+        Picasso.get().load(Uri.parse(resource)).into(view);
     }
 
 //    @BindingAdapter("app:layoutManager")

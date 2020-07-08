@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="screenUtil"
-            type="com.fivelove.utils.ScreenHelperUtil" />
+            name="user"
+            type="com.fivelove.db.model.User" />
 
         <variable
             name="title"
@@ -25,6 +25,22 @@
         android:scrollbarStyle="outsideInset"
         tools:context="com.fivelove.ui.MainActivity">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avt_profile"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:background="@android:drawable/screen_background_light_transparent"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:src="@{user.avt, default = @drawable/th}"
+            app:civ_border_color="@color/color_red"
+            app:civ_border_width="@dimen/small_item_padding"
+            app:layout_constraintBottom_toTopOf="@+id/pager"
+            app:layout_constraintEnd_toStartOf="@+id/materialToolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Toolbar
             android:id="@+id/materialToolbar"
             android:layout_width="0dp"
@@ -33,7 +49,7 @@
             app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintBottom_toTopOf="@+id/pager"
             app:layout_constraintEnd_toStartOf="@+id/searchView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/avt_profile"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|enterAlways" />
 

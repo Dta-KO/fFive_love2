@@ -2,12 +2,10 @@ package com.fivelove.db;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.fivelove.db.converter.BitmapConverter;
 import com.fivelove.db.converter.DateConverter;
@@ -37,19 +35,8 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "app_database")
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
                     .build();
         }
         return instance;
     }
-
-    private static RoomDatabase.Callback roomCallback = new Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
-
-
 }

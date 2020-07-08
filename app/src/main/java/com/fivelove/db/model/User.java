@@ -8,9 +8,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
 /**
  * Created by Nguyen Kim Khanh on 6/8/2020.
  */
+@IgnoreExtraProperties
 @Entity(tableName = "friends")
 public class User {
     @PrimaryKey

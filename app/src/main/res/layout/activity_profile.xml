@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
         <variable
             name="user"
@@ -19,7 +20,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="32dp"
-            android:src="@{user.avt}"
+            android:src="@{user.avt, default = @drawable/th}"
             app:civ_border_color="@color/color_red"
             app:civ_border_overlay="true"
             app:civ_border_width="1dp"
@@ -44,9 +45,9 @@
                 android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{user.name}"
                 android:hint="@string/edt_user_name"
                 android:inputType="textPersonName|textCapWords"
+                android:text="@{user.name}"
                 android:textColor="@color/color_white" />
 
         </com.google.android.material.textfield.TextInputLayout>

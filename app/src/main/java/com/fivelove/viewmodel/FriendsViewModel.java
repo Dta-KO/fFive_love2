@@ -1,10 +1,12 @@
 package com.fivelove.viewmodel;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.fivelove.App;
 import com.fivelove.db.model.User;
@@ -19,9 +21,10 @@ public class FriendsViewModel extends AndroidViewModel {
     private LiveData<List<User>> allFriends;
     private FriendsRepository repository;
 
+
     public FriendsViewModel(@NonNull Application application) {
         super(application);
-        repository = new FriendsRepository((App) application);
+        repository =  FriendsRepository.getInstance();
         allFriends = repository.getAllFriends();
 
     }
@@ -40,5 +43,9 @@ public class FriendsViewModel extends AndroidViewModel {
 
     public LiveData<List<User>> getAllFriends() {
         return allFriends;
+    }
+
+    public void deleteAllUser() {
+        repository.deleteAllUser();
     }
 }

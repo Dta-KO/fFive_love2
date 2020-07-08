@@ -64,9 +64,8 @@ dependencies {
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //room
-    implementation "androidx.room:room-runtime:2.2.5"
-    implementation 'com.google.firebase:firebase-storage:19.1.1'
-    annotationProcessor "androidx.room:room-compiler:2.2.5"
+    implementation "androidx.room:room-runtime:2.3.0-alpha01"
+    annotationProcessor "androidx.room:room-compiler:2.3.0-alpha01"
     //
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //lifecycle
@@ -84,6 +83,7 @@ dependencies {
     implementation "com.yuyakaido.android:card-stack-view:2.3.4"
     //firebase
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     //facebook

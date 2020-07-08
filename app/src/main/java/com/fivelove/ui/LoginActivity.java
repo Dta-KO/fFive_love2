@@ -3,8 +3,10 @@ package com.fivelove.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -18,13 +20,15 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.fivelove.R;
 import com.fivelove.databinding.ActivityLoginBinding;
+import com.fivelove.db.model.User;
 import com.fivelove.utils.Constant;
+import com.fivelove.viewmodel.FriendsViewModel;
+import com.fivelove.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Collections;
 
@@ -81,34 +85,54 @@ public class LoginActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         checkProfileUser();
-
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        Constant.AUTH.signInWithCredential(credential).addOnCompleteListener(this, (Task<AuthResult> task) ->
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, (Task<AuthResult> task) ->
                 checkProfileUser());
     }
 
     public void checkProfileUser() {
-        if (Constant.CURRENT_USER != null) {
-            Log.d(TAG,Constant.CURRENT_USER.getDisplayName()+": "+Constant.CURRENT_USER.getPhotoUrl());
-            if (Constant.CURRENT_USER.getDisplayName()==null || Constant.CURRENT_USER.getPhotoUrl().toString().isEmpty()) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Constant.EXECUTORS.mainThread().execute(() -> {
+                binding.btnLoginFb.setVisibility(View.INVISIBLE);
+                binding.btnLoginByPhoneNumber.setVisibility(View.INVISIBLE);
+            });
+
+            if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null || FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null) {
                 changeLoginActivityToProfileActivity();
             } else {
-                changeLoginActivityToMainActivity();
+
+                final UserViewModel model = new ViewModelProvider(this).get(UserViewModel.class);
+                model.getCurrentUser().observe(this, user -> {
+                    if (user != null) {
+                        String id = user.getId();
+                        if (id.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            return;
+                        }
+                    }
+                    insertUserToDB();
+                });
+
             }
+
+
+            changeLoginActivityToMainActivity();
         }
     }
+
 
     private void changeLoginActivityToMainActivity() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void changeLoginActivityToProfileActivity() {
         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -121,16 +145,22 @@ public class LoginActivity extends BaseActivity {
         if (requestCode == RC_SIGN_IN) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    changeLoginActivityToMainActivity();
-                } else {
-                    if (response != null) {
-                        Log.d("Error", String.valueOf(response.getError()));
-                    }
+                checkProfileUser();
+            } else {
+                if (response != null) {
+                    Log.d("Error", String.valueOf(response.getError()));
                 }
             }
         }
+    }
+
+
+    private void insertUserToDB() {
+        final FriendsViewModel viewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
+        User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid()
+                , FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
+                , String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
+        viewModel.insertUser(user);
     }
 
     private void loginByPhoneNumber() {

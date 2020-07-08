@@ -1,13 +1,12 @@
 package com.fivelove.db.repository;
 
-import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
 
 import com.fivelove.App;
 import com.fivelove.db.AppDatabase;
 import com.fivelove.db.dao.MessageDao;
 import com.fivelove.db.model.Message;
+import com.fivelove.utils.Constant;
 
 import java.util.List;
 
@@ -37,64 +36,20 @@ public class MessagesRepository {
 
 
     public void insertMessage(Message message) {
-        new MessagesRepository.InsertMessageAsyncTask(messageDao).execute(message);
+        Constant.EXECUTORS.diskIO().execute(() -> messageDao.insert(message));
     }
 
     public void deleteMessage(Message message) {
-        new MessagesRepository.DeleteMessageAsyncTask(messageDao).execute(message);
+        Constant.EXECUTORS.diskIO().execute(() -> messageDao.delete(message));
+
     }
 
     public void updateMessage(Message message) {
-        new MessagesRepository.UpdateMessageAsyncTask(messageDao).execute(message);
+        Constant.EXECUTORS.diskIO().execute(() -> messageDao.update(message));
     }
 
     public LiveData<List<Message>> getAllMessages() {
         return allMessages;
     }
-    private static class UpdateMessageAsyncTask extends AsyncTask<Message, Void, Void> {
-        private MessageDao messageDao;
-
-        private UpdateMessageAsyncTask(MessageDao messageDao) {
-            this.messageDao = messageDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            messageDao.update(messages[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteMessageAsyncTask extends AsyncTask<Message, Void, Void> {
-        private MessageDao messageDao;
-
-        private DeleteMessageAsyncTask(MessageDao messageDao) {
-            this.messageDao = messageDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            messageDao.delete(messages[0]);
-            return null;
-        }
-    }
-
-    private static class InsertMessageAsyncTask extends AsyncTask<Message, Void, Void> {
-        private MessageDao messageDao;
-
-        private InsertMessageAsyncTask(MessageDao messageDao) {
-            this.messageDao = messageDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(Message... messages) {
-            messageDao.insert(messages[0]);
-            return null;
-        }
-    }
-
 
 }

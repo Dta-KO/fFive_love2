@@ -8,6 +8,7 @@ import com.fivelove.App;
 import com.fivelove.db.AppDatabase;
 import com.fivelove.db.dao.ImageDao;
 import com.fivelove.db.model.Image;
+import com.fivelove.utils.Constant;
 
 import java.util.List;
 
@@ -28,69 +29,21 @@ public class ImageRepository {
     }
 
     public void insertImage(Image image) {
-        new ImageRepository.InsertImageAsyncTask(imageDao).execute(image);
+        Constant.EXECUTORS.diskIO().execute(() -> imageDao.insert(image));
     }
 
     public void deleteImage(Image image) {
-        new ImageRepository.DeleteImageAsyncTask(imageDao).execute(image);
+        Constant.EXECUTORS.diskIO().execute(() -> imageDao.delete(image));
+
     }
 
     public void updateImage(Image image) {
-        new ImageRepository.UpdateImageAsyncTask(imageDao).execute(image);
+        Constant.EXECUTORS.diskIO().execute(() -> imageDao.update(image));
+
     }
 
     public LiveData<List<Image>> getAllImages() {
         return allImages;
     }
-    private static class UpdateImageAsyncTask extends AsyncTask<Image, Void, Void> {
-        private ImageDao imageDao;
 
-        private UpdateImageAsyncTask(ImageDao imageDao) {
-            this.imageDao = imageDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(Image... images) {
-            imageDao.update(images[0]);
-            return null;
-        }
-    }
-
-    private static class InsertImageAsyncTask extends AsyncTask<Image, Void, Void> {
-        private ImageDao imageDao;
-
-        private InsertImageAsyncTask(ImageDao imageDao) {
-            this.imageDao = imageDao;
-        }
-
-
-        @Override
-        protected Void doInBackground(Image... images) {
-            imageDao.insert(images[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteImageAsyncTask extends AsyncTask<Image, Void, Void> {
-        private ImageDao imageDao;
-
-        private DeleteImageAsyncTask(ImageDao imageDao) {
-            this.imageDao = imageDao;
-        }
-
-        public ImageDao getImageDao() {
-            return imageDao;
-        }
-
-        public void setImageDao(ImageDao imageDao) {
-            this.imageDao = imageDao;
-        }
-
-        @Override
-        protected Void doInBackground(Image... images) {
-            imageDao.delete(images[0]);
-            return null;
-        }
-    }
 }

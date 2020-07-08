@@ -1,6 +1,7 @@
 package com.fivelove.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.fivelove.adapter.MessageAdapter;
 import com.fivelove.databinding.FragmentUsersBinding;
+import com.fivelove.utils.Constant;
 import com.fivelove.viewmodel.FriendsViewModel;
 
 import java.util.Objects;
@@ -61,6 +63,7 @@ public class MessageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setRecyclerView();
         setViewModel();
+
     }
 
     public void setRecyclerView() {

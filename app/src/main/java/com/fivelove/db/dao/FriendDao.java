@@ -29,6 +29,8 @@ public interface FriendDao {
     LiveData<List<User>> getAllFriends();
 
     @Query(("SELECT * FROM friends WHERE id = :id"))
-    LiveData<User> getCurrentUser(String id);
+    LiveData<User> getUser(String id);
 
+    @Query("DELETE FROM friends")
+    void deleteAllUser();
 }

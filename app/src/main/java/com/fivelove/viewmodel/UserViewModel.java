@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.fivelove.App;
 import com.fivelove.db.model.User;
 import com.fivelove.db.repository.UserRepository;
 
@@ -15,19 +14,19 @@ import com.fivelove.db.repository.UserRepository;
  */
 public class UserViewModel extends AndroidViewModel {
     private LiveData<User> currentUser;
+    UserRepository repository;
 
-
-    public UserViewModel(@NonNull App application) {
+    public UserViewModel(@NonNull Application application) {
         super(application);
-        UserRepository repository = new UserRepository(application);
-        currentUser = repository.getCurrentUser();
+        repository = UserRepository.getInstance();
+        currentUser = repository.getUser();
     }
 
     public LiveData<User> getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(LiveData<User> currentUser) {
-        this.currentUser = currentUser;
+    public void updateUser(User user) {
+        repository.updateUser(user);
     }
 }
