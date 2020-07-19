@@ -72,8 +72,8 @@
                     android:gravity="start"
                     android:text="@{user.name.substring(0,1).toUpperCase()+user.name.substring(1),default =@string/user_anonymous}"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="italic" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/last_message"

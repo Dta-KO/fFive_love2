@@ -1,17 +1,14 @@
 package com.fivelove.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.fivelove.R;
 import com.fivelove.databinding.ImageItemBinding;
 import com.fivelove.db.model.Image;
-import com.fivelove.db.model.User;
 import com.yuyakaido.android.cardstackview.CardStackView;
 
 import java.util.ArrayList;
@@ -31,7 +28,7 @@ public class ImageAdapter extends CardStackView.Adapter<ImageAdapter.ViewHolder>
     @NonNull
     @Override
     public ImageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ImageItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.image_item,parent,false);
+        ImageItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.image_item, parent, false);
         return new ViewHolder(binding);
     }
 
@@ -48,6 +45,7 @@ public class ImageAdapter extends CardStackView.Adapter<ImageAdapter.ViewHolder>
 
     protected static class ViewHolder extends CardStackView.ViewHolder {
         ImageItemBinding binding;
+
         public ViewHolder(@NonNull ImageItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

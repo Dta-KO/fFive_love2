@@ -1,9 +1,8 @@
 package com.fivelove.db.model;
 
-import android.graphics.Bitmap;
-
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -14,21 +13,27 @@ import java.util.Date;
 /**
  * Created by Nguyen Kim Khanh on 6/20/2020.
  */
-@Entity(tableName = "images",indices = {@Index("idUser")},foreignKeys = @ForeignKey(entity = User.class,parentColumns = "id",childColumns = "idUser",onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "images", indices = {@Index("idUser")}, foreignKeys = @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "idUser", onDelete = ForeignKey.CASCADE))
 public class Image {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private Bitmap bitmap;
+    private String bitmap;
     @ServerTimestamp
     private Date timePost;
     private int likes;
     private String descriptions;
-    private long idUser;
+    private String idUser;
 
-    public Image(Bitmap bitmap, int likes, String descriptions) {
+    @Ignore
+    public Image() {
+    }
+
+    public Image(String bitmap, Date timePost, int likes, String descriptions, String idUser) {
         this.bitmap = bitmap;
+        this.timePost = timePost;
         this.likes = likes;
         this.descriptions = descriptions;
+        this.idUser = idUser;
     }
 
     public int getId() {
@@ -39,11 +44,11 @@ public class Image {
         this.id = id;
     }
 
-    public Bitmap getBitmap() {
+    public String getBitmap() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(String bitmap) {
         this.bitmap = bitmap;
     }
 
@@ -71,11 +76,11 @@ public class Image {
         this.descriptions = descriptions;
     }
 
-    public long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 

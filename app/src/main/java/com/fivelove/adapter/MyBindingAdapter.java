@@ -4,15 +4,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
+import com.fivelove.App;
 import com.fivelove.R;
 import com.squareup.picasso.Picasso;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.StackFrom;
+
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,8 +33,8 @@ public class MyBindingAdapter {
     }
 
 //    @BindingAdapter("app:layoutManager")
-//    public static void setLayoutManager(CardStackView view, Context context){
-//        CardStackLayoutManager layoutManager = new CardStackLayoutManager(context);
+//    public static void setLayoutManager(CardStackView view,App app){
+//        CardStackLayoutManager layoutManager = new CardStackLayoutManager(app);
 //        layoutManager.setStackFrom(StackFrom.Right);
 //        layoutManager.setVisibleCount(3);
 //        layoutManager.setTranslationInterval(16.0f);
@@ -40,5 +44,4 @@ public class MyBindingAdapter {
 //        view.setLayoutManager(layoutManager);
 //        view.rewind();
 //    }
-
 }

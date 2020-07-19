@@ -6,7 +6,6 @@ import com.fivelove.App;
 import com.fivelove.db.AppDatabase;
 import com.fivelove.db.dao.FriendDao;
 import com.fivelove.db.model.User;
-import com.fivelove.utils.Constant;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
@@ -38,7 +37,6 @@ public class UserRepository {
     }
 
     public void updateUser(User user) {
-        Constant.EXECUTORS.diskIO().execute(() -> friendDao.update(user)
-        );
+        friendDao.update(user);
     }
 }

@@ -1,9 +1,6 @@
 package com.fivelove.db.model;
 
-import android.net.Uri;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;

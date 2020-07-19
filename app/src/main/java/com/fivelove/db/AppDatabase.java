@@ -20,7 +20,7 @@ import com.fivelove.db.model.User;
 /**
  * Created by Nguyen Kim Khanh on 6/16/2020.
  */
-@Database(entities = {User.class, Message.class, Image.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Message.class, Image.class}, version = 2, exportSchema = false)
 @TypeConverters({DateConverter.class, BitmapConverter.class, UriConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;

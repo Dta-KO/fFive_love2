@@ -6,7 +6,6 @@ import com.fivelove.App;
 import com.fivelove.db.AppDatabase;
 import com.fivelove.db.dao.MessageDao;
 import com.fivelove.db.model.Message;
-import com.fivelove.utils.Constant;
 
 import java.util.List;
 
@@ -36,16 +35,16 @@ public class MessagesRepository {
 
 
     public void insertMessage(Message message) {
-        Constant.EXECUTORS.diskIO().execute(() -> messageDao.insert(message));
+        messageDao.insert(message);
     }
 
     public void deleteMessage(Message message) {
-        Constant.EXECUTORS.diskIO().execute(() -> messageDao.delete(message));
+        messageDao.delete(message);
 
     }
 
     public void updateMessage(Message message) {
-        Constant.EXECUTORS.diskIO().execute(() -> messageDao.update(message));
+        messageDao.update(message);
     }
 
     public LiveData<List<Message>> getAllMessages() {

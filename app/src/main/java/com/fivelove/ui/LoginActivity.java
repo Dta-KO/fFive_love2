@@ -21,8 +21,7 @@ import com.firebase.ui.auth.IdpResponse;
 import com.fivelove.R;
 import com.fivelove.databinding.ActivityLoginBinding;
 import com.fivelove.db.model.User;
-import com.fivelove.utils.Constant;
-import com.fivelove.viewmodel.FriendsViewModel;
+import com.fivelove.viewmodel.UsersViewModel;
 import com.fivelove.viewmodel.UserViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -33,7 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Collections;
 
 import static com.firebase.ui.auth.BuildConfig.BUILD_TYPE;
-import static com.fivelove.utils.Constant.RC_SIGN_IN;
+import static com.fivelove.utils.Constants.RC_SIGN_IN;
 
 public class LoginActivity extends BaseActivity {
 
@@ -45,7 +44,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(getApplication());
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -95,11 +93,8 @@ public class LoginActivity extends BaseActivity {
 
     public void checkProfileUser() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Constant.EXECUTORS.mainThread().execute(() -> {
-                binding.btnLoginFb.setVisibility(View.INVISIBLE);
-                binding.btnLoginByPhoneNumber.setVisibility(View.INVISIBLE);
-            });
-
+            binding.btnLoginFb.setVisibility(View.INVISIBLE);
+            binding.btnLoginByPhoneNumber.setVisibility(View.INVISIBLE);
             if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName() == null || FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null) {
                 changeLoginActivityToProfileActivity();
             } else {
@@ -156,7 +151,7 @@ public class LoginActivity extends BaseActivity {
 
 
     private void insertUserToDB() {
-        final FriendsViewModel viewModel = new ViewModelProvider(this).get(FriendsViewModel.class);
+        final UsersViewModel viewModel = new ViewModelProvider(this).get(UsersViewModel.class);
         User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid()
                 , FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
                 , String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));

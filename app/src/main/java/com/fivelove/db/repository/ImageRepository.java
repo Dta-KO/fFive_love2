@@ -1,14 +1,11 @@
 package com.fivelove.db.repository;
 
-import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
 
 import com.fivelove.App;
 import com.fivelove.db.AppDatabase;
 import com.fivelove.db.dao.ImageDao;
 import com.fivelove.db.model.Image;
-import com.fivelove.utils.Constant;
 
 import java.util.List;
 
@@ -21,6 +18,15 @@ public class ImageRepository {
     private String idFriend;
 
 
+    public String getIdFriend() {
+        return idFriend;
+    }
+
+    public void setIdFriend(String idFriend) {
+        this.idFriend = idFriend;
+    }
+
+
     public ImageRepository(App application) {
         AppDatabase db = AppDatabase.getInstance(application);
 
@@ -29,16 +35,16 @@ public class ImageRepository {
     }
 
     public void insertImage(Image image) {
-        Constant.EXECUTORS.diskIO().execute(() -> imageDao.insert(image));
+        imageDao.insert(image);
     }
 
     public void deleteImage(Image image) {
-        Constant.EXECUTORS.diskIO().execute(() -> imageDao.delete(image));
+        imageDao.delete(image);
 
     }
 
     public void updateImage(Image image) {
-        Constant.EXECUTORS.diskIO().execute(() -> imageDao.update(image));
+        imageDao.update(image);
 
     }
 

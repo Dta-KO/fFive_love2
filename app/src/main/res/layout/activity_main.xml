@@ -29,7 +29,7 @@
             android:id="@+id/avt_profile"
             android:layout_width="50dp"
             android:layout_height="0dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:background="@android:drawable/screen_background_light_transparent"
             android:paddingStart="1dp"
             android:paddingEnd="1dp"

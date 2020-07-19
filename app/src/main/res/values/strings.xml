@@ -28,5 +28,6 @@
     <string name="edt_phone">Số điện thoại của bạn.</string>
     <string name="btn_save_profile">Lưu Profile</string>
     <string name="btn_logout">Đăng xuất</string>
+    <string name="header_hint">Bạn đang nghĩ gì?</string>
 
 </resources>
