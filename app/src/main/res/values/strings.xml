@@ -35,5 +35,6 @@
     <string name="add_background">Màu nền</string>
     <string name="add_friend">Tag bạn bè</string>
     <string name="add_feel">Thêm hoạt động, cảm xúc</string>
+    <string name="btn_add">Thêm vào bài viết của bạn</string>
 
 </resources>

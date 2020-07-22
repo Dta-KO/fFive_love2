@@ -12,9 +12,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="@color/color_white"
         android:clickable="true"
         android:focusable="true"
+        android:fitsSystemWindows="true"
         android:focusableInTouchMode="true"
         android:touchscreenBlocksFocus="false"
         tools:context="com.fivelove.fragment.StatusFragment">
@@ -48,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@android:drawable/screen_background_light_transparent"
+            android:background="@drawable/btn_state"
             android:text="@string/btn_post"
             app:layout_constraintBottom_toTopOf="@+id/edt_context"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,13 +85,61 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_context"
             tools:src="@drawable/th" />
 
-        <include
-            layout="@layout/bottom_sheet_status_fragment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/slim_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="start|center_vertical"
+                android:paddingStart="@dimen/list_item_spacing"
+                android:paddingEnd="@dimen/list_item_spacing"
+                android:text="@string/btn_add"
+                android:textColor="@color/color_gray"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_add_feel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:clickable="false"
+                android:contentDescription="@string/add_feel"
+                android:src="@drawable/ic_tag_faces"
+                android:translationZ="90dp" />
+
+            <ImageView
+                android:id="@+id/img_add_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="40dp"
+                android:clickable="false"
+                android:contentDescription="@string/add_friend"
+                android:src="@drawable/ic_contacts"
+                android:translationZ="90dp" />
+
+            <ImageView
+                android:id="@+id/img_add_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="64dp"
+                android:clickable="false"
+                android:contentDescription="@string/add_image"
+                android:src="@drawable/ic_add_photo"
+                android:translationZ="90dp" />
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
