@@ -33,4 +33,5 @@ public interface FriendDao {
 
     @Query("DELETE FROM friends")
     void deleteAllUser();
+
 }

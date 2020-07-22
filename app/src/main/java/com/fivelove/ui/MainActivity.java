@@ -1,36 +1,43 @@
 package com.fivelove.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.fivelove.R;
 import com.fivelove.adapter.MPagerAdapter;
 import com.fivelove.databinding.ActivityMainBinding;
+import com.fivelove.fragment.StatusFragment;
+import com.fivelove.fragment.StoryFragment;
 import com.fivelove.viewmodel.UserViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nguyen Kim Khanh on 6/8/2020.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements StoryFragment.Callback, StatusFragment.Callback {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
     private ActivityMainBinding binding;
     private ViewPager2 viewPager2;
     private CircleImageView circleImageView;
+    private TabLayout tabLayout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -38,20 +45,23 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        circleImageView = binding.avtProfile;
+        circleImageView = binding.toolbar.avtProfile;
         setContentView(binding.getRoot());
         setViewPager2();
         setTabLayout();
         setToolbar();
-
+        setAvtProfile();
+        StoryFragment.callback = this;
+        StatusFragment.callback = this;
     }
+
 
     @Override
     public void onBackPressed() {
-        if (binding.pager.getCurrentItem() == 0) {
+        if (viewPager2.getCurrentItem() == 0) {
             super.onBackPressed();
         } else {
-            binding.pager.setCurrentItem(binding.pager.getCurrentItem() - 1);
+            viewPager2.setCurrentItem(binding.pager.getCurrentItem() - 1);
         }
     }
 
@@ -63,33 +73,26 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void setTabLayout() {
-        TabLayout tabLayout = binding.tab;
+        tabLayout = binding.tab;
         new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> {
             if (position == 0) {
-                tab.setIcon(R.drawable.ic_amp_stories_24);
+                tab.setIcon(R.drawable.ic_amp_stories_24).setText("Story");
             } else {
-                tab.setIcon(R.drawable.ic_mes);
+                tab.setIcon(R.drawable.ic_mes).setText("Chat");
             }
         }).attach();
     }
 
 
     public void setToolbar() {
-        Toolbar toolbar = binding.materialToolbar;
-        toolbar.inflateMenu(R.menu.menu_header);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            toolbar.setTitleTextColor(getResources().getColor(R.color.color_red, getTheme()));
-        } else {
-            toolbar.setTitleTextColor(getResources().getColor(R.color.color_red));
-        }
+        Toolbar toolbar = binding.toolbar.textView4;
+        toolbar.setTitleTextColor(Color.RED);
         setActionBar(toolbar);
     }
 
     public void setAvtProfile() {
         final UserViewModel myViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        myViewModel.getCurrentUser().observe(this, users -> {
-            binding.setUser(users);
-        });
+        myViewModel.getCurrentUser().observe(this, users -> binding.setUser(users));
         circleImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
@@ -97,6 +100,45 @@ public class MainActivity extends FragmentActivity {
         });
     }
 
+    @Override
+    public void onBtnStatusClick() {
+        StatusFragment statusFragment = StatusFragment.newInstance();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.container_pager, statusFragment)
+                .addToBackStack("tag")
+                .commit();
+        Objects.requireNonNull(getActionBar()).setTitle("Tạo bài viết");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
+        enableTab(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(false);
+            getActionBar().setDisplayShowHomeEnabled(false);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroyStatusFragment() {
+        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(false);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setTitle("Five love");
+        enableTab(true);
+    }
+
+    public void enableTab(Boolean isEnable) {
+        LinearLayout tabStrip = (LinearLayout) tabLayout.getChildAt(0);
+        tabStrip.setEnabled(isEnable);
+        for (int i = 0; i < tabStrip.getChildCount(); i++) {
+            tabStrip.getChildAt(i).setClickable(isEnable);
+        }
+    }
 }
 
 

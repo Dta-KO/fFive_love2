@@ -21,6 +21,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class ProfileActivity extends BaseActivity {
 
     private static final String TAG = ProfileActivity.class.getSimpleName();
@@ -149,8 +151,9 @@ public class ProfileActivity extends BaseActivity {
         super.onBackPressed();
         changeToMainActivity();
     }
-    public void changeToMainActivity(){
-        Intent intent = new Intent(this,MainActivity.class);
+
+    public void changeToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

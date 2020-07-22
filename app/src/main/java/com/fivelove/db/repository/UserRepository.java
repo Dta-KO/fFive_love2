@@ -8,6 +8,8 @@ import com.fivelove.db.dao.FriendDao;
 import com.fivelove.db.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Created by Nguyen Kim Khanh on 7/3/2020.
  */
@@ -38,5 +40,9 @@ public class UserRepository {
 
     public void updateUser(User user) {
         friendDao.update(user);
+    }
+
+    public void deleteUser(@Nullable User user) {
+        friendDao.delete(user);
     }
 }

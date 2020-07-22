@@ -34,7 +34,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
         this.context = context;
         notifyDataSetChanged();
     }
-    public void setImages(List<Image> images){
+
+    public void setImages(List<Image> images) {
         this.images = images;
         notifyDataSetChanged();
     }
@@ -50,18 +51,20 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.binding.setUser(users.get(position));
-        CardStackLayoutManager layoutManager = new CardStackLayoutManager(context);
-        layoutManager.setStackFrom(StackFrom.Right);
-        layoutManager.setVisibleCount(3);
-        layoutManager.setTranslationInterval(16.0f);
-        layoutManager.setScaleInterval(0.95f);
-        layoutManager.setMaxDegree(0.0f);
-        layoutManager.setDirections(Direction.HORIZONTAL);
-        binding.cardStackView.setLayoutManager(layoutManager);
-        binding.cardStackView.rewind();
-        imageAdapter = new ImageAdapter();
-        imageAdapter.setImages(images);
-        binding.cardStackView.setAdapter(imageAdapter);
+        if (images.size() != 0) {
+            CardStackLayoutManager layoutManager = new CardStackLayoutManager(context);
+            layoutManager.setStackFrom(StackFrom.Right);
+            layoutManager.setVisibleCount(3);
+            layoutManager.setTranslationInterval(16.0f);
+            layoutManager.setScaleInterval(0.95f);
+            layoutManager.setMaxDegree(0.0f);
+            layoutManager.setDirections(Direction.HORIZONTAL);
+            binding.cardStackView.setLayoutManager(layoutManager);
+            binding.cardStackView.rewind();
+            imageAdapter = new ImageAdapter();
+            imageAdapter.setImages(images);
+            binding.cardStackView.setAdapter(imageAdapter);
+        }
         holder.binding.executePendingBindings();
     }
 

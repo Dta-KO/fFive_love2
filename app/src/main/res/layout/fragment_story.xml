@@ -1,31 +1,37 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container_story"
+<androidx.core.widget.NestedScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.fivelove.fragment.StoryFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include
-        android:id="@+id/header_story"
-        layout="@layout/header_story"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container_story"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:isScrollContainer="true"
-        app:layout_constraintBottom_toTopOf="@+id/story_recycler_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context="com.fivelove.fragment.StoryFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/story_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@id/header_story"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/story_item" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/header_story"
+            android:isScrollContainer="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            layout="@layout/header_story"
+            app:layout_constraintBottom_toTopOf="@+id/story_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/story_recycler_view"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/header_story"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/story_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

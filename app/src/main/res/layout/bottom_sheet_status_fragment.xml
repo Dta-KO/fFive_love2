@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/slim_border"
+        app:behavior_peekHeight= "?attr/actionBarSize"
+        app:behavior_hideable="true"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:background="@drawable/slim_border">
+
+            <Button
+                android:id="@+id/txt_add_image"
+                style="@style/App.ImageButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_add_photo"
+                android:gravity="center_vertical"
+                android:text="@string/add_image"
+                android:textColor="@color/color_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:background="@drawable/slim_border"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/txt_add_background"
+                style="@style/App.ImageButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_text_fields"
+                android:gravity="center_vertical"
+                android:text="@string/add_background"
+                android:textColor="@color/color_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:background="@drawable/slim_border"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/txt_add_friend"
+                style="@style/App.ImageButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_contacts"
+                android:gravity="center_vertical"
+                android:text="@string/add_friend"
+                android:textColor="@color/color_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:background="@drawable/slim_border"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/txt_add_feel"
+                style="@style/App.ImageButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_tag_faces"
+                android:gravity="center_vertical"
+                android:text="@string/add_feel"
+                android:textColor="@color/color_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

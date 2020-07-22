@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,8 @@ public class StoryFragment extends Fragment {
 
     private StoryAdapter storyAdapter;
     private List<User> users = new ArrayList<>();
+    public static Callback callback;
+
 
     public StoryFragment() {
         // Required empty public constructor
@@ -48,7 +51,6 @@ public class StoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentStoryBinding.inflate(getLayoutInflater());
-
         Objects.requireNonNull(Objects.requireNonNull(getActivity()).getActionBar()).setTitle("Five Love");
         return binding.getRoot();
     }
@@ -66,6 +68,7 @@ public class StoryFragment extends Fragment {
         setRecyclerView();
         setUsersViewModel();
         setImagesViewModel();
+        setBtnStatus();
     }
 
     public void setRecyclerView() {
@@ -93,6 +96,17 @@ public class StoryFragment extends Fragment {
                 storyAdapter.setImages(images);
             });
         }
+    }
+
+    public void setBtnStatus() {
+        Button btnStatus = binding.headerStory.btnStatus;
+        btnStatus.setOnClickListener(view -> {
+            callback.onBtnStatusClick();
+        });
+    }
+
+    public interface Callback {
+        void onBtnStatusClick();
     }
 
 }

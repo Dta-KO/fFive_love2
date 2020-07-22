@@ -38,10 +38,8 @@ public class FriendsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
-    CircleImageView imageView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

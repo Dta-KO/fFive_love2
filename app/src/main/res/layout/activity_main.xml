@@ -9,85 +9,72 @@
             name="user"
             type="com.fivelove.db.model.User" />
 
-        <variable
-            name="title"
-            type="com.fivelove.adapter.MPagerAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:fadeScrollbars="true"
-        android:isScrollContainer="true"
-        android:nestedScrollingEnabled="true"
-        android:overScrollMode="ifContentScrolls"
-        android:scrollbarStyle="outsideInset"
         tools:context="com.fivelove.ui.MainActivity">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avt_profile"
-            android:layout_width="50dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            android:paddingStart="1dp"
-            android:paddingEnd="1dp"
-            android:src="@{user.avt, default = @drawable/th}"
-            app:civ_border_color="@color/color_red"
-            app:civ_border_width="@dimen/small_item_padding"
-            app:layout_constraintBottom_toTopOf="@+id/pager"
-            app:layout_constraintEnd_toStartOf="@+id/materialToolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Toolbar
-            android:id="@+id/materialToolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/pager"
-            app:layout_constraintEnd_toStartOf="@+id/searchView"
-            app:layout_constraintStart_toEndOf="@+id/avt_profile"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_scrollFlags="scroll|enterAlways" />
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:closeIcon="@drawable/ic_baseline_close_24"
-            app:layout_constraintBottom_toTopOf="@+id/pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/materialToolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:searchHintIcon="@drawable/ic_baseline_search_24"
-            app:searchIcon="@drawable/ic_baseline_search_24" />
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:fitsSystemWindows="true">
 
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginStart="@dimen/toolbar_margin"
+                android:layout_marginEnd="@dimen/toolbar_margin"
+                android:background="@drawable/border"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:statusBarScrim="@color/color_sky">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
+                <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/toolbar_margin"
+                    android:layout_marginEnd="@dimen/toolbar_margin" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <FrameLayout
+            android:id="@+id/container_pager"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@android:drawable/screen_background_light_transparent"
-            android:layoutDirection="ltr"
-            app:layout_constraintBottom_toTopOf="@+id/tab"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="true"
+                android:layoutDirection="ltr"
+                android:nestedScrollingEnabled="true"
+
+                app:layout_constraintBottom_toTopOf="@+id/tab"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+        </FrameLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

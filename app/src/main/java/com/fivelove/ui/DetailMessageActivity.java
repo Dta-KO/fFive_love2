@@ -26,8 +26,6 @@ public class DetailMessageActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-//        Intent intent = new Intent(DetailMessageActivity.this, MainActivity.class);
-//        intent.putExtra("name", binding.edtSend.getText().toString());
-//        startActivity(intent);
+
     }
 }

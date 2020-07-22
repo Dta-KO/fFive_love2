@@ -12,7 +12,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -21,8 +20,9 @@ import com.firebase.ui.auth.IdpResponse;
 import com.fivelove.R;
 import com.fivelove.databinding.ActivityLoginBinding;
 import com.fivelove.db.model.User;
-import com.fivelove.viewmodel.UsersViewModel;
+import com.fivelove.utils.Constants;
 import com.fivelove.viewmodel.UserViewModel;
+import com.fivelove.viewmodel.UsersViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -104,16 +104,15 @@ public class LoginActivity extends BaseActivity {
                     if (user != null) {
                         String id = user.getId();
                         if (id.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                            return;
+                           return;
                         }
                     }
-                    insertUserToDB();
+                    else {
+                        insertUserToDB();
+                    }
                 });
-
+                changeLoginActivityToMainActivity();
             }
-
-
-            changeLoginActivityToMainActivity();
         }
     }
 
@@ -156,6 +155,7 @@ public class LoginActivity extends BaseActivity {
                 , FirebaseAuth.getInstance().getCurrentUser().getDisplayName()
                 , String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
         viewModel.insertUser(user);
+        Constants.DB.collection("users").add(user);
     }
 
     private void loginByPhoneNumber() {
