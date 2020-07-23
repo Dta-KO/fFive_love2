@@ -1,6 +1,7 @@
 package com.fivelove.ui;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class ProfileActivity extends BaseActivity {
 
     private ActivityProfileBinding binding;
     private Uri imgUrl;
+    private Uri imgUri;
     private Button btnSave;
 
     @Override
@@ -33,17 +35,22 @@ public class ProfileActivity extends BaseActivity {
         btnSave = binding.btnSave;
         btnSave.setEnabled(false);
         setContentView(binding.getRoot());
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setViewModel();
         binding.btnLogout.setOnClickListener(view -> signOut());
         binding.avtProfile.setOnClickListener(view -> ImageUtils.chooseImage(this));
+        setEnableBtnSave();
         btnSave.setOnClickListener(view -> {
-            if (binding.edtName.getText().toString().isEmpty() || binding.edtPhone.getText().toString().isEmpty()) {
-                return;
-            } else {
-                updateProfileOnServer(binding.edtName.getText().toString().trim(), String.valueOf(imgUrl));
-            }
+            uploadImage(imgUri);
         });
+    }
+    public void setEnableBtnSave(){
+        if (binding.edtName.getText().toString().isEmpty() || binding.edtPhone.getText().toString().isEmpty()){
+            return;
+        }else {
+            binding.btnSave.setEnabled(true);
+        }
     }
 
     public void setViewModel() {
@@ -63,6 +70,7 @@ public class ProfileActivity extends BaseActivity {
                 .putFile(imgUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     getImageFromUrl(idImage + "." + ImageUtils.getExtensionImage(imgUri, getApplicationContext()));
+                    updateProfileOnServer(binding.edtName.getText().toString().trim(), String.valueOf(imgUrl));
                     btnSave.setEnabled(true);
                 });
     }
@@ -124,9 +132,8 @@ public class ProfileActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri imgUri = data.getData();
+            imgUri = data.getData();
             binding.avtProfile.setImageURI(imgUri);
-            uploadImage(imgUri);
         }
     }
 

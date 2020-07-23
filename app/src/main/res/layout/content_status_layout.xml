@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_post"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edt_context"
+                style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:hint="@string/header_hint"
+                android:inputType="textMultiLine|textCapSentences"
+                android:nestedScrollingEnabled="true"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/create_status"
+                android:nestedScrollingEnabled="true"
+                android:scaleType="fitStart"
+                android:visibility="gone"
+                tools:src="@drawable/th" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

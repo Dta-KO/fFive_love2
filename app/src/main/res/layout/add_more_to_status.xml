@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/slim_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="start|center_vertical"
+            android:paddingStart="@dimen/list_item_spacing"
+            android:paddingEnd="@dimen/list_item_spacing"
+            android:text="@string/btn_add"
+            android:textColor="@color/color_gray"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/img_add_feel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:contentDescription="@string/add_feel"
+            android:src="@drawable/ic_tag_faces"
+            android:translationZ="90dp" />
+
+        <ImageView
+            android:id="@+id/img_add_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="40dp"
+            android:clickable="false"
+            android:contentDescription="@string/add_friend"
+            android:src="@drawable/ic_contacts"
+            android:translationZ="90dp" />
+
+        <ImageView
+            android:id="@+id/img_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="64dp"
+            android:clickable="false"
+            android:contentDescription="@string/add_image"
+            android:src="@drawable/ic_add_photo"
+            android:translationZ="90dp" />
+
+    </FrameLayout>
+</layout>

@@ -1,5 +1,6 @@
 package com.fivelove.fragment;
 
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,9 +39,9 @@ public class StatusFragment extends Fragment implements BottomSheetStatusFragmen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentStatusBinding.inflate(getLayoutInflater());
-        binding.imgAddImage.bringToFront();
-        binding.imgAddFeel.bringToFront();
-        binding.imgAddFriends.bringToFront();
+        binding.addMore.imgAddImage.bringToFront();
+        binding.addMore.imgAddFeel.bringToFront();
+        binding.addMore.imgAddFriends.bringToFront();
         return binding.getRoot();
     }
 
@@ -48,6 +49,8 @@ public class StatusFragment extends Fragment implements BottomSheetStatusFragmen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setBtnAdd();
+        getActivity().setRequestedOrientation(
+                ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class StatusFragment extends Fragment implements BottomSheetStatusFragmen
         callback.onDestroyStatusFragment();
     }
     public void setBtnAdd(){
-        binding.btnAdd.setOnClickListener(view -> {
+        binding.addMore.btnAdd.setOnClickListener(view -> {
             BottomSheetStatusFragment fragment = new BottomSheetStatusFragment();
             fragment.show(getParentFragmentManager(),fragment.getTag());
         });
@@ -64,8 +67,8 @@ public class StatusFragment extends Fragment implements BottomSheetStatusFragmen
 
     @Override
     public void onGetImageSuccess(Uri imgUri) {
-        binding.image.setVisibility(View.VISIBLE);
-        binding.image.setImageURI(imgUri);
+        binding.content.image.setVisibility(View.VISIBLE);
+        binding.content.image.setImageURI(imgUri);
     }
 
     public interface Callback {
