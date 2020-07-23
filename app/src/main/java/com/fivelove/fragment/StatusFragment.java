@@ -1,5 +1,6 @@
 package com.fivelove.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.fivelove.databinding.FragmentStatusBinding;
+import com.fivelove.ui.MainActivity;
 
-public class StatusFragment extends Fragment {
+public class StatusFragment extends Fragment implements BottomSheetStatusFragment.Callback {
     FragmentStatusBinding binding;
     public static Callback callback;
 
@@ -28,6 +30,7 @@ public class StatusFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.callback = this;
     }
 
     @Override
@@ -57,6 +60,12 @@ public class StatusFragment extends Fragment {
             BottomSheetStatusFragment fragment = new BottomSheetStatusFragment();
             fragment.show(getParentFragmentManager(),fragment.getTag());
         });
+    }
+
+    @Override
+    public void onGetImageSuccess(Uri imgUri) {
+        binding.image.setVisibility(View.VISIBLE);
+        binding.image.setImageURI(imgUri);
     }
 
     public interface Callback {

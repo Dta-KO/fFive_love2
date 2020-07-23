@@ -2,6 +2,7 @@ package com.fivelove.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,8 +20,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.fivelove.R;
 import com.fivelove.adapter.MPagerAdapter;
 import com.fivelove.databinding.ActivityMainBinding;
+import com.fivelove.fragment.BottomSheetStatusFragment;
 import com.fivelove.fragment.StatusFragment;
 import com.fivelove.fragment.StoryFragment;
+import com.fivelove.utils.Constants;
 import com.fivelove.viewmodel.UserViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -28,6 +31,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * Created by Nguyen Kim Khanh on 6/8/2020.
@@ -38,6 +42,7 @@ public class MainActivity extends FragmentActivity implements StoryFragment.Call
     private ViewPager2 viewPager2;
     private CircleImageView circleImageView;
     private TabLayout tabLayout;
+    public static BottomSheetStatusFragment.Callback callback;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -62,6 +67,15 @@ public class MainActivity extends FragmentActivity implements StoryFragment.Call
             super.onBackPressed();
         } else {
             viewPager2.setCurrentItem(binding.pager.getCurrentItem() - 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imgUri = data.getData();
+            callback.onGetImageSuccess(imgUri);
         }
     }
 

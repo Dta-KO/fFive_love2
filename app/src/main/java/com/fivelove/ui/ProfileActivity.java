@@ -1,10 +1,8 @@
 package com.fivelove.ui;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -14,6 +12,7 @@ import com.facebook.login.LoginManager;
 import com.fivelove.databinding.ActivityProfileBinding;
 import com.fivelove.db.model.User;
 import com.fivelove.utils.Constants;
+import com.fivelove.utils.ImageUtils;
 import com.fivelove.viewmodel.UserViewModel;
 import com.fivelove.viewmodel.UsersViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,11 +20,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
-
 public class ProfileActivity extends BaseActivity {
 
-    private static final String TAG = ProfileActivity.class.getSimpleName();
     private ActivityProfileBinding binding;
     private Uri imgUrl;
     private Button btnSave;
@@ -40,7 +36,7 @@ public class ProfileActivity extends BaseActivity {
 
         setViewModel();
         binding.btnLogout.setOnClickListener(view -> signOut());
-        binding.avtProfile.setOnClickListener(view -> chooseImage());
+        binding.avtProfile.setOnClickListener(view -> ImageUtils.chooseImage(this));
         btnSave.setOnClickListener(view -> {
             if (binding.edtName.getText().toString().isEmpty() || binding.edtPhone.getText().toString().isEmpty()) {
                 return;
@@ -58,27 +54,15 @@ public class ProfileActivity extends BaseActivity {
         );
     }
 
-    public void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, Constants.IMAGE);
-    }
-
-    public String getExtensionImage(Uri uri) {
-        ContentResolver resolver = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(resolver.getType(uri));
-    }
 
     public void uploadImage(Uri imgUri) {
         final float idImage = System.currentTimeMillis();
         Constants.FIREBASE_STORAGE.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("avt")
-                .child(idImage + "." + getExtensionImage(imgUri))
+                .child(idImage + "." + ImageUtils.getExtensionImage(imgUri, getApplicationContext()))
                 .putFile(imgUri)
                 .addOnSuccessListener(taskSnapshot -> {
-                    getImageFromUrl(idImage + "." + getExtensionImage(imgUri));
+                    getImageFromUrl(idImage + "." + ImageUtils.getExtensionImage(imgUri, getApplicationContext()));
                     btnSave.setEnabled(true);
                 });
     }
