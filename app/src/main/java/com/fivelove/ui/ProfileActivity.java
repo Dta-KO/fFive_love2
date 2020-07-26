@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,34 +25,29 @@ import com.squareup.picasso.Picasso;
 public class ProfileActivity extends BaseActivity {
 
     private ActivityProfileBinding binding;
-    private Uri imgUrl;
     private Uri imgUri;
-    private Button btnSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
-        btnSave = binding.btnSave;
-        btnSave.setEnabled(false);
+        Button btnSave = binding.btnSave;
         setContentView(binding.getRoot());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setViewModel();
         binding.btnLogout.setOnClickListener(view -> signOut());
         binding.avtProfile.setOnClickListener(view -> ImageUtils.chooseImage(this));
-        setEnableBtnSave();
         btnSave.setOnClickListener(view -> {
-            uploadImage(imgUri);
+            if (imgUri != null && !binding.edtName.getText().toString().isEmpty() && !binding.edtPhone.getText().toString().isEmpty()) {
+                uploadImage(imgUri);
+                btnSave.setEnabled(false);
+            } else {
+                Toast.makeText(getApplicationContext(), "Hãy nhập đầy đủ thông tin bạn nhé!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
-    public void setEnableBtnSave(){
-        if (binding.edtName.getText().toString().isEmpty() || binding.edtPhone.getText().toString().isEmpty()){
-            return;
-        }else {
-            binding.btnSave.setEnabled(true);
-        }
-    }
+
 
     public void setViewModel() {
         final UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -70,8 +66,6 @@ public class ProfileActivity extends BaseActivity {
                 .putFile(imgUri)
                 .addOnSuccessListener(taskSnapshot -> {
                     getImageFromUrl(idImage + "." + ImageUtils.getExtensionImage(imgUri, getApplicationContext()));
-                    updateProfileOnServer(binding.edtName.getText().toString().trim(), String.valueOf(imgUrl));
-                    btnSave.setEnabled(true);
                 });
     }
 
@@ -85,7 +79,6 @@ public class ProfileActivity extends BaseActivity {
         FirebaseAuth.getInstance().getCurrentUser().updateProfile(updateRequest)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-
                         User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                                 FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                                 String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
@@ -93,7 +86,6 @@ public class ProfileActivity extends BaseActivity {
                         changeToMainActivity();
                     }
                 });
-        ;
 
     }
 
@@ -123,7 +115,7 @@ public class ProfileActivity extends BaseActivity {
         StorageReference storageImage = Constants.FIREBASE_STORAGE.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("avt").child(idImage);
         storageImage.getDownloadUrl().addOnSuccessListener(uri -> {
             Picasso.get().load(uri).into(binding.avtProfile);
-            imgUrl = uri;
+            updateProfileOnServer(binding.edtName.getText().toString().trim(), String.valueOf(uri));
         });
     }
 
